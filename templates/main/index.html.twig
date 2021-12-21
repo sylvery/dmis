@@ -3,15 +3,15 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-  <!-- ======= Hero Section ======= -->
+  {# <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex justify-content-center align-items-center">
     <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
       <h1>Read Today,<br>Lead Tomorrow</h1>
       <h2>We are team of talented educators producing leaders one book at a time</h2>
-      {# <a href="{{path('login')}}" class="btn-get-started">Get Started</a> #}
+      {# <a href="{{path('login')}}" class="btn-get-started">Get Started</a>
     </div>
-  </section><!-- End Hero -->
-
+  </section><!-- End Hero --> #}
+  {% set totalProfit = totalRevenue - totalCosts %}
   <main id="main" class="bg-dark">
     <!-- ======= Counts Section ======= -->
     <section id="counts" class="counts section-bg">
@@ -20,28 +20,86 @@
         <div class="row counters">
 
           <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">{{random([10948,842050,0239,85823,842])}}</span>
-            <p>Students</p>
+            <span data-toggle="counter-up">{{stocks|length}}</span>
+            <p>Total Stocks Bought</p>
           </div>
 
           <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">{{random([10948,842050,0239,85823,842])}}</span>
-            <p>Books</p>
+            <span data-toggle="counter-up">{{totalCosts|number_format(2, '.', ',')}}</span>
+            <p>Total Costs</p>
           </div>
           <!--
           -->
           <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">{{random([10948,842050,0239,85823,842])}}</span>
-            <p>Authors</p>
+            <span data-toggle="counter-up">{{totalRevenue|number_format(2, '.', ',')}}</span>
+            <p>Total Revenue</p>
           </div>
           <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">{{random([10948,842050,0239,85823,842])}}</span>
-            <p>Librarians</p>
+            <span data-toggle="counter-up">{{(totalProfit)|number_format(2, '.', ',')}}</span>
+            <p>Total Profits</p>
           </div>
 
         </div>
 
       </div>
     </section><!-- End Counts Section -->
+    <section id="stocks" class="container">
+      {# {% set newsales = ea_url()
+          .setController('App\\Controller\\Admin\\DailySaleCrudController')
+          .setAction('new')
+      %}
+      {% set newstock = ea_url()
+          .setController('App\\Controller\\Admin\\StockItemCrudController')
+          .setAction('new')
+      %} #}
+      <div class="row">
+        <div class="col-md-6 mb-3 mt-1">
+          <h1 class="text-warning h1 display-4">Items on Sale <span class="float-right small"><span class="badge badge-success badge-small badge-sm small">{{stocksSelling|length}}</span></span></h1>
+          <div class="list-group">
+            <div class="list-group-item small text-secondary">
+              Items &amp; Cost
+              {# <span class="float-right">Revenue / Profit</span> #}
+            </div>
+            {% for stock in stocksSelling %}
+              <div class="list-group-item">
+                <a href="{{path('stock_show',{'id':stock.id})}}">
+                  {{ stock.name }} &times; {{stock.quantity}} &equals; K {{stock.cost|number_format(2, '.', ',')}}
+                  <span class="float-right">{{ stock.revenue ? 'K ' ~ stock.revenue|number_format(2, '.', ',') ~ ' / K ' ~ profit|number_format(2, '.', ',') : ''}}</span>
+                </a>
+              </div>
+            {% endfor %}
+            <div class="list-group-item small text-secondary">
+              Total Profit
+              {# <span class="float-right large">K {{profit|number_format(2, '.', ',')}}</span> #}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3 mt-1">
+          <h1 class="text-warning h1 display-4">Items Sold Out <span class="float-right small"><span class="badge badge-success badge-small badge-sm small">{{stocksSoldOut|length}}</span></span></h1>
+          <div class="list-group">
+            <div class="list-group-item small text-secondary">
+              Item &amp; Cost
+              <span class="float-right">Revenue / Profit</span>
+            </div>
+            {% set profit = 0 %}
+            {% for stock in stocksSoldOut %}
+              {% set xprofit = 0 %}
+              {% set xprofit = stock.revenue - stock.cost %}
+              {% set profit = profit + xprofit %}
+              <div class="list-group-item">
+                <a href="{{path('stock_show',{'id':stock.id})}}">
+                  {{ stock.name }} &times; {{stock.quantity}} &equals; K {{stock.cost|number_format(2, '.', ',')}}
+                  <span class="float-right">{{ stock.revenue ? 'K ' ~ stock.revenue|number_format(2, '.', ',') ~ ' / K ' ~ xprofit|number_format(2, '.', ',') : ''}}</span>
+                </a>
+              </div>
+            {% endfor %}
+            <div class="list-group-item small text-secondary">
+              Total Profit
+              <span class="float-right large">K {{profit|number_format(2, '.', ',')}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main><!-- End #main -->
 {% endblock %}

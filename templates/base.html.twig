@@ -13,53 +13,68 @@
     </head>
     <body class="m-0">
         <!-- ======= Header ======= -->
-        <header id="header" class="bg-light">
+        <header id="header" class="bg-dark">
             <div class="container d-flex align-items-center">
 
-            <h1 class="logo mr-auto"><a href="{{path('home')}}">Payroll</a></h1>
+            <h1 class="logo mr-auto"><a href="{{path('home')}}">Table PAPA</a></h1>
             <!-- Uncomment below if you prefer to use an image logo -->
             <a href="{{path('home')}}" class="logo mr-auto"><img src="assets/img/bbp_logo_150x150.png" alt="" class="img-fluid"></a>
 
             <nav class="navbar navbar-expand-sm navbar-light bg-light nav-menu d-none d-lg-block">
-                <ul class="nav justify-content-center">
-                    <li class="nav-item active"><a class="nav-link" href="{{path('home')}}">Home</a></li>
-                    {# <li class="nav-item drop-down"><a class="nav-link" href="{{path('book_index')}}">Books</a>
-                        <ul class="nav justify-content-center">
-                            <li class="nav-item"><a class="nav-link" href="{{path('borrow_new')}}">Check-out Book</a></li>
-                            <hr>
-                            <li class="nav-item"><a class="nav-link" href="{{path('book_new')}}">Add A Book</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{path('book_index')}}">Look for a Book</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{path('reading_level_index')}}">Reading Levels</a></li>
-                            <hr>
-                            <li class="nav-item"><a class="nav-link" href="{{path('publisher_index')}}">Publishers</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{path('publication_index')}}">Publications</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="{{path('librarian_index')}}">Librarians</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{path('author_index')}}">Authors</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{path('student_index')}}">Students</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact.html">Contact</a></li> #}
-                    <li class="drop-down nav-item">
-                      <a class="nav-link" href="{{path('admin')}}">Admin</a>
+              {% set salesUrl = ea_url()
+                  .setController('App\\Controller\\Admin\\DailySaleCrudController')
+                  .setAction('index')
+              %}
+              {% set stocksUrl = ea_url()
+                  .setController('App\\Controller\\Admin\\StockItemCrudController')
+                  .setAction('index')
+              %}
+              {% set newSalesUrl = ea_url()
+                  .setController('App\\Controller\\Admin\\DailySaleCrudController')
+                  .setAction('new')
+              %}
+              {% set newStocksUrl = ea_url()
+                  .setController('App\\Controller\\Admin\\StockItemCrudController')
+                  .setAction('new')
+              %}
+              <ul class="nav justify-content-center">
+                  <li class="nav-item active"><a class="nav-link" href="{{path('home')}}">Home</a></li>
+                  {# <li class="nav-item drop-down"><a class="nav-link" href="{{path('book_index')}}">Books</a>
                       <ul class="nav justify-content-center">
-                          <li class="nav-item"><a class="nav-link" href="#">Buk Bilong Pikinini Project</a></li>
-                          <li class="nav-item"><a class="nav-link" href="#">UPNG Library</a></li>
-                          <li class="nav-item"><a class="nav-link" href="#pricing.html">Terms & Conditions</a></li>
+                          <li class="nav-item"><a class="nav-link" href="{{path('borrow_new')}}">Check-out Book</a></li>
+                          <hr>
+                          <li class="nav-item"><a class="nav-link" href="{{path('book_new')}}">Add A Book</a></li>
+                          <li class="nav-item"><a class="nav-link" href="{{path('book_index')}}">Look for a Book</a></li>
+                          <li class="nav-item"><a class="nav-link" href="{{path('reading_level_index')}}">Reading Levels</a></li>
+                          <hr>
+                          <li class="nav-item"><a class="nav-link" href="{{path('publisher_index')}}">Publishers</a></li>
+                          <li class="nav-item"><a class="nav-link" href="{{path('publication_index')}}">Publications</a></li>
                       </ul>
-                    </li>
-                </ul>
+                  </li>
+                  <li class="nav-item"><a class="nav-link" href="{{path('librarian_index')}}">Librarians</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#contact.html">Contact</a></li> #}
+                  <li class="nav-item"><a class="nav-link" href="{{salesUrl}}">Sales</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{{stocksUrl}}">Stocks</a></li>
+                  <li class="drop-down nav-item">
+                    <a class="nav-link get-started-btn" href="{{path('admin')}}">Admin</a>
+                    <ul class="nav justify-content-center">
+                        <li class="nav-item"><a class="nav-link" href="{{newSalesUrl}}">New Sales</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{newStocksUrl}}">New Stocks</a></li>
+                    </ul>
+                  </li>
+              </ul>
             </nav><!-- .nav-menu -->
 
-            <a href="#courses.html" class="get-started-btn">Get Started</a>
+            {# <a href="#courses.html" class="get-started-btn">Get Started</a> #}
 
             </div>
         </header><!-- End Header -->
-        <div class="container">
-        {% block body %}{% endblock %}
+        <div class="container-fluid p-0 m-0 mt-3">
+          {% block body %}{% endblock %}
         </div>
         <footer id="footer">
 
-          <div class="footer-top">
+          {# <div class="footer-top">
             <div class="container">
               <div class="row">
 
@@ -108,7 +123,7 @@
 
               </div>
             </div>
-          </div>
+          </div> #}
 
           <div class="container d-md-flex py-4">
 
