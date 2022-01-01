@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Daily Sales Report{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="h1 display-3 text-muted">Daily Sales Report</p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="list-group-flush">
+                            {% set totalSales = 0 %}
+                            {% for entry in entries %}
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    {{entry.item.name ~ ' - ' ~ entry.quantity}}
+                                    <span class="float-right">K {{entry.amount|number_format(2, '.', ',')}}</span>
+                                    {% set totalSales = totalSales+entry.amount %}
+                                </a>
+                            {% endfor %}
+                            <div class="list-group-item">
+                                Total <span class="float-right">K {{totalSales|number_format(2, '.', ',')}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

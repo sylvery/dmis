@@ -19,6 +19,16 @@ class EntryRepository extends ServiceEntityRepository
         parent::__construct($registry, Entry::class);
     }
 
+    // public function findSales()
+    // {
+    //     return $this->createQueryBuilder('e')
+    //         ->andWhere('e.activity = \'Sale\'')
+    //         ->getQuery()
+    //         ->getResult()
+    //         // ->join('e.item', 'entryitem')
+    //     ;
+    // }
+
     // /**
     //  * @return Entry[] Returns an array of Entry objects
     //  */
