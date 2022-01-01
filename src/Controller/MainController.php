@@ -26,24 +26,24 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(StockItemRepository $sir): Response
+    public function index(): Response
     {
-        $stocks = $sir->findAll();
-        $stocksSoldOut = $sir->findBy(['soldOut'=>true],['dateOut'=>'desc']);
-        $stocksSelling = $sir->findBy(['soldOut'=>false],['dateIn'=>'desc']);
-        $totalCosts = 0;
-        $totalRevenue = 0;
-        foreach ($stocks as $stock) {
-            $totalCosts += $stock->getCost();
-            $totalRevenue += $stock->getRevenue();
-        }
+        // $stocks = $sir->findAll();
+        // $stocksSoldOut = $sir->findBy(['soldOut'=>true],['dateOut'=>'desc']);
+        // $stocksSelling = $sir->findBy(['soldOut'=>false],['dateIn'=>'desc']);
+        // $totalCosts = 0;
+        // $totalRevenue = 0;
+        // foreach ($stocks as $stock) {
+        //     $totalCosts += $stock->getCost();
+        //     $totalRevenue += $stock->getRevenue();
+        // }
         // dump($addNewDailySalesRecordUrl, $addNewStockItemUrl); exit;
-        return $this->render('main/index.html.twig',[
-            'stocks' => $stocks,
-            'stocksSoldOut' => $stocksSoldOut,
-            'stocksSelling' => $stocksSelling,
-            'totalCosts' => $totalCosts,
-            'totalRevenue' => $totalRevenue,
+        return $this->render('main/index1.html.twig',[
+            // 'stocks' => $stocks,
+            // 'stocksSoldOut' => $stocksSoldOut,
+            // 'stocksSelling' => $stocksSelling,
+            // 'totalCosts' => $totalCosts,
+            // 'totalRevenue' => $totalRevenue,
         ]);
     }
 }

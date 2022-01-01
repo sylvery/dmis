@@ -19,8 +19,8 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         $routeBuilder = $this->get(AdminUrlGenerator::class);
-        return $this->redirect($routeBuilder->setController(StockItemCrudController::class)->generateUrl());
-        // return parent::index();
+        // return $this->redirect($routeBuilder->setController(StockItemCrudController::class)->generateUrl());
+        return parent::index();
     }
 
     public function configureDashboard(): Dashboard
@@ -33,8 +33,8 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToUrl('exit dashboard', 'fas fa-chevron-left', '/');
         yield MenuItem::linktoDashboard('Stocks', 'fas fa-boxes');
-        yield MenuItem::linkToCrud('Sales', 'fas fa-coins', DailySale::class);
-        yield MenuItem::linkToCrud('Users', 'fas fa-users', AppUser::class);
+        // yield MenuItem::linkToCrud('Sales', 'fas fa-coins', DailySale::class);
+        // yield MenuItem::linkToCrud('Users', 'fas fa-users', AppUser::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
