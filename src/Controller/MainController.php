@@ -6,6 +6,7 @@ use App\Controller\Admin\DailySaleCrudController;
 use App\Controller\Admin\StockItemCrudController;
 use App\Repository\AuthorRepository;
 use App\Repository\BookRepository;
+use App\Repository\ItemRepository;
 use App\Repository\LibrarianRepository;
 use App\Repository\StockItemRepository;
 use App\Repository\StudentRepository;
@@ -26,9 +27,9 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(): Response
+    public function index(ItemRepository $itemRepository): Response
     {
-        // $stocks = $sir->findAll();
+        $items = $itemRepository->findAll();
         // $stocksSoldOut = $sir->findBy(['soldOut'=>true],['dateOut'=>'desc']);
         // $stocksSelling = $sir->findBy(['soldOut'=>false],['dateIn'=>'desc']);
         // $totalCosts = 0;
@@ -39,7 +40,7 @@ class MainController extends AbstractController
         // }
         // dump($addNewDailySalesRecordUrl, $addNewStockItemUrl); exit;
         return $this->render('main/index1.html.twig',[
-            // 'stocks' => $stocks,
+            'items' => $items,
             // 'stocksSoldOut' => $stocksSoldOut,
             // 'stocksSelling' => $stocksSelling,
             // 'totalCosts' => $totalCosts,

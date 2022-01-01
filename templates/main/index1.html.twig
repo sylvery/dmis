@@ -5,13 +5,44 @@
 {% block body %}
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <h1 class="display-3">Fluid jumbo heading</h1>
-        <p class="lead">Jumbo helper text</p>
+        <h1 class="display-1">Tradestore</h1>
+        <p class="lead">a helper in your time of need for growth and prosperty ~ not a burden</p>
         <hr class="my-2">
-        <p>More info</p>
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" href="Jumbo action link" role="button">Jumbo action name</a>
-        </p>
+        <div class="row">
+            <div class="col-2">
+                <i class="fas fa-book-open fa-6x fa-fw"></i>
+            </div>
+            <div class="col-8">
+                <p>This application is packed with all the tools you will need to better manage your tradestore's stocks, inventory, keep track of revenue and expenses etc. It will empower you and give you the power to be your own boss!</p>
+                <p class="lead">
+                    {% set newItemUrl = ea_url()
+                        .setController('App\\Controller\\Admin\\ItemCrudController')
+                        .setAction('new')
+                        .includeReferrer(true)
+                    %}
+                    <a class="btn btn-success btn-lg" href="{{newItemUrl}}" role="button">Register your items to begin</a>
+                </p>
+            </div>
+            <div class="col-2">
+                <i class="fas fa-calculator fa-6x fa-fw"></i>
+            </div>
+        </div>
     </div>
 </div>
+{% if items %}
+    <div class="container my-3 py-3">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="h1 display-3 text-secondary">Items</p>
+                <div class="list-group">
+                    {% for item in items %}
+                        <a href="#" class="list-group-item list-group-item-action">
+                            {{item.name ~ ' - ' ~ item.quantity}}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
 {% endblock %}

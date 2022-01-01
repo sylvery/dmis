@@ -1,64 +1,49 @@
 
-        <!-- ======= Header ======= -->
-        <header id="header" class="bg-dark">
-            <div class="container d-flex align-items-center">
+<!-- ======= Header ======= -->
+<header id="header" class="bg-dark">
+    <div class="container d-flex align-items-center">
 
-            <h1 class="logo mr-auto">
-                <a href="{{path('home')}}">
-                    TRADESTORE <br>
-                    <span class="small text-light">journals <span class="text-warning">&plus;</span> reports</span>
-                </a>
-            </h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <a href="{{path('home')}}" class="logo mr-auto"><img src="assets/img/bbp_logo_150x150.png" alt="" class="img-fluid"></a>
+    <h1 class="logo mr-auto">
+        <a href="{{path('home')}}">
+            TRADESTORE <br>
+            <span class="small text-light">journals <span class="text-warning">&plus;</span> reports</span>
+        </a>
+    </h1>
+    <!-- Uncomment below if you prefer to use an image logo -->
+    <a href="{{path('home')}}" class="logo mr-auto"><img src="assets/img/bbp_logo_150x150.png" alt="" class="img-fluid"></a>
 
-            <nav class="navbar navbar-expand-sm navbar-light bg-light nav-menu d-none d-lg-block">
-              {% set salesUrl = ea_url()
-                  .setController('App\\Controller\\Admin\\DashboardController')
-                  .setAction('index')
-              %}
-              {% set stocksUrl = ea_url()
-                  .setController('App\\Controller\\Admin\\DashboardController')
-                  .setAction('index')
-              %}
-              {% set newSalesUrl = ea_url()
-                  .setController('App\\Controller\\Admin\\DashboardController')
-                  .includeReferrer(true)
-              %}
-              {% set newStocksUrl = ea_url()
-                  .setController('App\\Controller\\Admin\\DashboardController')
-                  .includeReferrer(true)
-              %}
-              <ul class="nav justify-content-center">
-                  <li class="nav-item active"><a class="nav-link" href="{{path('home')}}">Home</a></li>
-                  {# <li class="nav-item drop-down"><a class="nav-link" href="{{path('book_index')}}">Books</a>
-                      <ul class="nav justify-content-center">
-                          <li class="nav-item"><a class="nav-link" href="{{path('borrow_new')}}">Check-out Book</a></li>
-                          <hr>
-                          <li class="nav-item"><a class="nav-link" href="{{path('book_new')}}">Add A Book</a></li>
-                          <li class="nav-item"><a class="nav-link" href="{{path('book_index')}}">Look for a Book</a></li>
-                          <li class="nav-item"><a class="nav-link" href="{{path('reading_level_index')}}">Reading Levels</a></li>
-                          <hr>
-                          <li class="nav-item"><a class="nav-link" href="{{path('publisher_index')}}">Publishers</a></li>
-                          <li class="nav-item"><a class="nav-link" href="{{path('publication_index')}}">Publications</a></li>
-                      </ul>
-                  </li>
-                  <li class="nav-item"><a class="nav-link" href="{{path('librarian_index')}}">Librarians</a></li>
-                  #}
-                  {# <li class="nav-item"><a class="nav-link" href="{{path('sale')}}">Reports</a></li> #}
-                  <li class="nav-item"><a class="nav-link" href="{{salesUrl}}">Sales</a></li>
-                  <li class="nav-item"><a class="nav-link" href="{{stocksUrl}}">Stocks</a></li>
-                  <li class="drop-down nav-item">
-                    <a class="nav-link get-started-btn" href="{{path('admin')}}">Admin</a>
-                    <ul class="nav justify-content-center">
-                        <li class="nav-item"><a class="nav-link" href="{{newSalesUrl}}">New Sale</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{newStocksUrl}}">New Stocks</a></li>
-                    </ul>
-                  </li>
-              </ul>
-            </nav><!-- .nav-menu -->
-
-            {# <a href="#courses.html" class="get-started-btn">Get Started</a> #}
-
-            </div>
-        </header><!-- End Header -->
+    <nav class="navbar navbar-expand-sm navbar-light bg-light nav-menu d-none d-lg-block">
+        {% set entriesUrl = ea_url()
+            .setController('App\\Controller\\Admin\\DashboardController')
+            .setAction('index')
+        %}
+        {% set itemsUrl = ea_url()
+            .setController('App\\Controller\\Admin\\ItemCrudController')
+            .setAction('index')
+        %}
+        {% set newEntryUrl = ea_url()
+            .setController('App\\Controller\\Admin\\EntryCrudController')
+            .setAction('new')
+            .includeReferrer(true)
+        %}
+        {% set newItemUrl = ea_url()
+            .setController('App\\Controller\\Admin\\ItemCrudController')
+            .setAction('new')
+            .includeReferrer(true)
+        %}
+        <ul class="nav justify-content-center">
+            <li class="nav-item active"><a class="nav-link" href="{{path('home')}}">Home</a></li>
+            {# <li class="nav-item"><a class="nav-link" href="{{path('sale')}}">Reports</a></li> #}
+            <li class="nav-item"><a class="nav-link" href="{{entriesUrl}}">Entries</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{itemsUrl}}">Items</a></li>
+            <li class="drop-down nav-item">
+            <a class="nav-link get-started-btn" href="{{path('admin')}}">Admin</a>
+            <ul class="nav justify-content-center">
+                <li class="nav-item"><a class="nav-link" href="{{newEntryUrl}}">New Entry</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{newItemUrl}}">New Item</a></li>
+            </ul>
+            </li>
+        </ul>
+    </nav><!-- .nav-menu -->
+    </div>
+</header><!-- End Header -->

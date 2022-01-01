@@ -2,8 +2,8 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\AppUser;
-use App\Entity\DailySale;
+use App\Entity\Activity;
+use App\Entity\Item;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -19,8 +19,8 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         $routeBuilder = $this->get(AdminUrlGenerator::class);
-        // return $this->redirect($routeBuilder->setController(StockItemCrudController::class)->generateUrl());
-        return parent::index();
+        return $this->redirect($routeBuilder->setController(EntryCrudController::class)->generateUrl());
+        // return parent::index();
     }
 
     public function configureDashboard(): Dashboard
@@ -32,9 +32,9 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToUrl('exit dashboard', 'fas fa-chevron-left', '/');
-        yield MenuItem::linktoDashboard('Stocks', 'fas fa-boxes');
-        // yield MenuItem::linkToCrud('Sales', 'fas fa-coins', DailySale::class);
-        // yield MenuItem::linkToCrud('Users', 'fas fa-users', AppUser::class);
+        yield MenuItem::linktoDashboard('Entries', 'fas fa-boxes');
+        yield MenuItem::linkToCrud('Items', 'fas fa-coins', Item::class);
+        yield MenuItem::linkToCrud('Activities', 'fas fa-users', Activity::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
