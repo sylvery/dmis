@@ -34,6 +34,13 @@ class StockItemCrudController extends AbstractCrudController
         } else if ($pageName == Crud::PAGE_NEW) {
             return [$name, $dateIn, $quantity, $cost, $sellingPrice];
         } else if ($pageName == Crud::PAGE_EDIT) {
+            $entityManager = $this->getDoctrine()->getManager();
+            // dump($this->get('EasyCorp\Bundle\EasyAdminBundle\Factory\EntityFactory')); exit;
+            // dump($entityManager->find($this->getEntityFqcn(),16)); exit;
+            $entityInstance = $entityManager->find($this->getEntityFqcn(), 16);
+            if ($entityInstance) {
+                return [$name, $quantity, $cost, $sellingPrice, $dateIn, $dateOut, $revenue, $soldOut];
+            }
             return [$soldOut, $dateOut, $revenue, $sellingPrice];
         } else {
             return [$name, $soldOut, $quantity, $cost, $sellingPrice, $dateIn, $dateOut, $revenue];

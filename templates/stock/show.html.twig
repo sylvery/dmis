@@ -5,83 +5,109 @@
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 mb-3">
                 <h1>{{stock_item}}</h1>
                 <p>Stock Item details</p>
             </div>
-            <div class="col-md-8">
-                <table class="table table-success table-sm small table-striped table-hover">
-                    <tbody>
-                        <tr>
-                            <th>{{"Id"|humanize}}</th>
-                            <td>{{ stock_item.id }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{"Name"|humanize}}</th>
-                            <td>{{ stock_item.name }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{"Quantity"|humanize}}</th>
-                            <td>{{ stock_item.quantity }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{"DateIn"|humanize}}</th>
-                            <td>{{ stock_item.dateIn ? stock_item.dateIn|date('Y-m-d') : '' }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{"DateOut"|humanize}}</th>
-                            <td>{{ stock_item.dateOut ? stock_item.dateOut|date('Y-m-d') : '' }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{"Cost"|humanize}}</th>
-                            <td>{{ stock_item.cost }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{"SellingPrice"|humanize}}</th>
-                            <td>{{ stock_item.sellingPrice }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{"Revenue"|humanize}}</th>
-                            <td>{{ stock_item.revenue }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{"CreditedAmount"|humanize}}</th>
-                            <td>{{ stock_item.creditedAmount }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{"DebitedAmount"|humanize}}</th>
-                            <td>{{ stock_item.debitedAmount }}</td>
-                        </tr>
-                        <tr>
-                            <th>{{"SoldOut"|humanize}}</th>
-                            <td>{{ stock_item.soldOut ? 'Yes' : 'No' }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="col-1 mx-0 px-0">
+                <a class="btn btn-sm text-center btn-block btn-outline-info" href="{{path('stock_show',{id:(stock_item.id-1)})}}">
+                    <i class="fas fa-caret-left fa-5x fa-fw"></i> previous
+                </a>
             </div>
-            <div class="col-md-4">
-                <div class="card border-dark">
-                    <div class="card-body">
-                        <h4 class="card-title">Daily Sales Records</h4>
-                        <div class="card-text">
-                            <div class="list-group list-group-flush small">
-                                <div class="list-group-item bg-success text-light">Date <span class="float-right">Amount (Qty)</span></div>
-                                {% set totalSales = 0 %}
-                                {% set totalStocks = 0 %}
-                                {% for sales in stock_item.dailySales %}
-                                    {% set totalSales = totalSales + sales.amount %}
-                                    {% set totalStocks = totalStocks + sales.quantity %}
-                                    <div class="list-group-item">{{sales.date|date('d M')}} <span class="float-right">K {{sales.amount|number_format(2, '.', ',')}} ({{sales.quantity}})</span></div>
-                                {% endfor %}
-                                <div class="list-group-item bg-warning text-dark"><strong>Total</strong><span class="float-right">K {{ totalSales }} ({{totalStocks}})</span></div>
-                                <div class="list-group-item text-muted">Expected <span class="float-right"><em>K {{totalStocks*stock_item.sellingPrice|number_format(2,'.',',')}}</em></span></div>
-                                <div class="list-group-item text-muted">Difference <span class="float-right"><em>K {{(totalStocks*stock_item.sellingPrice - totalSales)|number_format(2,'.',',')}}</em></span></div>
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-md-8 mb-3">
+                        <table class="table table-success table-sm small table-striped table-hover">
+                            <tbody>
+                                {# <tr>
+                                    <th>{{"Id"|humanize}}</th>
+                                    <td>{{ stock_item.id }}</td>
+                                </tr> #}
+                                <tr>
+                                    <th>{{"Name"|humanize}}</th>
+                                    <td>{{ stock_item.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{"Quantity"|humanize}}</th>
+                                    <td>{{ stock_item.quantity }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{"DateIn"|humanize}}</th>
+                                    <td>{{ stock_item.dateIn ? stock_item.dateIn|date('d F') : '' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{"DateOut"|humanize}}</th>
+                                    <td>{{ stock_item.dateOut ? stock_item.dateOut|date('d F') : '' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{"Cost"|humanize}}</th>
+                                    <td>K {{ stock_item.cost|number_format(2, '.', ',') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{"SellingPrice"|humanize}}</th>
+                                    <td>K {{ stock_item.sellingPrice|number_format(2, '.', ',') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{"Revenue"|humanize}}</th>
+                                    <td>K {{ stock_item.revenue|number_format(2, '.', ',') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{"CreditedAmount"|humanize}}</th>
+                                    <td>K {{ stock_item.creditedAmount|number_format(2, '.', ',') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{"DebitedAmount"|humanize}}</th>
+                                    <td>K {{ stock_item.debitedAmount|number_format(2, '.', ',') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{"SoldOut"|humanize}}</th>
+                                    <td>{{ stock_item.soldOut ? 'Yes' : 'No' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-dark">
+                            <div class="card-body">
+                                <h4 class="card-title">Daily Sales Records</h4>
+                                <div class="card-text">
+                                    <div class="list-group list-group-flush small">
+                                        <div class="list-group-item bg-success text-light">Date <span class="float-right">Amount (Qty)</span></div>
+                                        {% set totalSales = 0 %}
+                                        {% set totalStocks = 0 %}
+                                        {% for sales in stock_item.dailySales %}
+                                            {% set totalSales = totalSales + sales.amount %}
+                                            {% set totalStocks = totalStocks + sales.quantity %}
+                                            {% set viewSale = ea_url()
+                                                .setController('App\\Controller\\Admin\\DailySaleCrudController')
+                                                .setAction('edit')
+                                                .setEntityId(sales.id)
+                                                .includeReferrer(1)
+                                            %}
+                                            {# .includeReferrer(path('stock_show',{id:stock_item.id})) #}
+                                            <div class="list-group-item">{{sales.date|date('d M')}} 
+                                                <span class="float-right">K {{sales.amount|number_format(2, '.', ',')}} ({{sales.quantity}})
+                                                    <a class="text-warning" href="{{viewSale}}">
+                                                        <i class="fas fa-pencil-alt fa-sm fa-fw"></i>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        {% endfor %}
+                                        <div class="list-group-item bg-warning text-dark"><strong>Total</strong><span class="float-right">K {{ totalSales }} ({{totalStocks}})</span></div>
+                                        <div class="list-group-item text-muted">Expected <span class="float-right"><em>K {{totalStocks*stock_item.sellingPrice|number_format(2,'.',',')}}</em></span></div>
+                                        <div class="list-group-item text-muted">Difference <span class="float-right"><em>K {{(totalStocks*stock_item.sellingPrice - totalSales)|number_format(2,'.',',')}}</em></span></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-1 mx-0 px-0">
+                <a class="btn btn-sm text-center btn-block btn-outline-info" href="{{path('stock_show',{id:(stock_item.id+1)})}}">
+                    <i class="fas fa-caret-right fa-5x fa-fw"></i> next
+                </a>
+            </div>
         </div>
-        <a class="btn btn-secondary" href="{{ path('stock_index') }}">back to list</a>
     </div>
 {% endblock %}
