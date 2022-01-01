@@ -33,3 +33,5 @@ import './vendor/counterup/counterup.min';
 import './vendor/jquery.easing/jquery.easing.min';
 import './vendor/waypoints/jquery.waypoints.min';
 import './js/main';
+import '@fortawesome/fontawesome-free/css/all.css';
+import '@fortawesome/fontawesome-free/js/all';

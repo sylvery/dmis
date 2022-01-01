@@ -14,6 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 
 class DailySaleCrudController extends AbstractCrudController
@@ -29,7 +30,7 @@ class DailySaleCrudController extends AbstractCrudController
         $sir = $manager->getRepository(StockItem::class);
         $date = DateField::new('date');
         $amount = NumberField::new('amount');
-        $quantity = NumberField::new('quantity');
+        $quantity = IntegerField::new('quantity');
         $stockitem = AssociationField::new('stockItem')->onlyOnForms()->setFormTypeOptions([
             "choices" => $sir->findBy(['soldOut' => false]),
         ]);

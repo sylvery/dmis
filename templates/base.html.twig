@@ -32,10 +32,12 @@
               {% set newSalesUrl = ea_url()
                   .setController('App\\Controller\\Admin\\DailySaleCrudController')
                   .setAction('new')
+                  .includeReferrer(true)
               %}
               {% set newStocksUrl = ea_url()
                   .setController('App\\Controller\\Admin\\StockItemCrudController')
                   .setAction('new')
+                  .includeReferrer(true)
               %}
               <ul class="nav justify-content-center">
                   <li class="nav-item active"><a class="nav-link" href="{{path('home')}}">Home</a></li>
@@ -52,13 +54,14 @@
                       </ul>
                   </li>
                   <li class="nav-item"><a class="nav-link" href="{{path('librarian_index')}}">Librarians</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#contact.html">Contact</a></li> #}
+                  #}
+                  <li class="nav-item"><a class="nav-link" href="{{path('sale')}}">Reports</a></li>
                   <li class="nav-item"><a class="nav-link" href="{{salesUrl}}">Sales</a></li>
                   <li class="nav-item"><a class="nav-link" href="{{stocksUrl}}">Stocks</a></li>
                   <li class="drop-down nav-item">
                     <a class="nav-link get-started-btn" href="{{path('admin')}}">Admin</a>
                     <ul class="nav justify-content-center">
-                        <li class="nav-item"><a class="nav-link" href="{{newSalesUrl}}">New Sales</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{newSalesUrl}}">New Sale</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{newStocksUrl}}">New Stocks</a></li>
                     </ul>
                   </li>

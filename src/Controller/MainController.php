@@ -29,8 +29,8 @@ class MainController extends AbstractController
     public function index(StockItemRepository $sir): Response
     {
         $stocks = $sir->findAll();
-        $stocksSoldOut = $sir->findBy(['soldOut'=>true]);
-        $stocksSelling = $sir->findBy(['soldOut'=>false]);
+        $stocksSoldOut = $sir->findBy(['soldOut'=>true],['dateOut'=>'desc']);
+        $stocksSelling = $sir->findBy(['soldOut'=>false],['dateIn'=>'desc']);
         $totalCosts = 0;
         $totalRevenue = 0;
         foreach ($stocks as $stock) {

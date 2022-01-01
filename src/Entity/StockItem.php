@@ -82,7 +82,7 @@ class StockItem
 
     public function __toString()
     {
-        return $this->getName() . ' x' . $this->getQuantity();
+        return $this->getName() . ' x' . $this->getQuantity() . ' ' . $this->getDateIn()->format('d M');
     }
 
     public function getId(): ?int
