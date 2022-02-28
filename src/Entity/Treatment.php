@@ -20,6 +20,11 @@ class Treatment
     private $id;
 
     /**
+     * @ORM\OneToMany(targetEntity=Invoice::class, mappedBy="treatment")
+     */
+    private $invoice;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="treatments")
      */
     private $client;
@@ -30,19 +35,34 @@ class Treatment
     private $doctor;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Product::class, inversedBy="treatments")
-     */
-    private $product;
-
-    /**
      * @ORM\OneToMany(targetEntity=Billing::class, mappedBy="treatment")
      */
     private $billings;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $paid;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $totalCost;
+
     public function __construct()
     {
-        $this->product = new ArrayCollection();
         $this->billings = new ArrayCollection();
+        $this->invoice = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getDate()->format('F jS Y') . ' ' . $this->getClient() . ' K' . $this->getTotalCost();
     }
 
     public function getId(): ?int
@@ -75,30 +95,6 @@ class Treatment
     }
 
     /**
-     * @return Collection<int, Product>
-     */
-    public function getProduct(): Collection
-    {
-        return $this->product;
-    }
-
-    public function addProduct(Product $product): self
-    {
-        if (!$this->product->contains($product)) {
-            $this->product[] = $product;
-        }
-
-        return $this;
-    }
-
-    public function removeProduct(Product $product): self
-    {
-        $this->product->removeElement($product);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Billing>
      */
     public function getBillings(): Collection
@@ -122,6 +118,72 @@ class Treatment
             // set the owning side to null (unless already changed)
             if ($billing->getTreatment() === $this) {
                 $billing->setTreatment(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getPaid(): ?bool
+    {
+        return $this->paid;
+    }
+
+    public function setPaid(?bool $paid): self
+    {
+        $this->paid = $paid;
+
+        return $this;
+    }
+
+    public function getTotalCost(): ?float
+    {
+        return $this->totalCost;
+    }
+
+    public function setTotalCost(?float $totalCost): self
+    {
+        $this->totalCost = $totalCost;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Invoice>
+     */
+    public function getInvoice(): Collection
+    {
+        return $this->invoice;
+    }
+
+    public function addInvoice(Invoice $invoice): self
+    {
+        if (!$this->invoice->contains($invoice)) {
+            $this->invoice[] = $invoice;
+            $invoice->setTreatment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoice(Invoice $invoice): self
+    {
+        if ($this->invoice->removeElement($invoice)) {
+            // set the owning side to null (unless already changed)
+            if ($invoice->getTreatment() === $this) {
+                $invoice->setTreatment(null);
             }
         }
 

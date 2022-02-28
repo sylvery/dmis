@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Treatment{% endblock %}
+
+{% block body %}
+    <section class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Create new Treatment</h1>
+            </div>
+            <div class="col-md-12 mb-3">
+                {{ form_start(form) }}
+                    <div class="{{row_attr|default('row')}}">
+                        {# {{ form_row(form.date,{'attr':{'class':'col mb-3'}}) }} #}
+                        {{ form_row(form.client,{'attr':{'class':'col mb-3'}}) }}
+                        {{ form_row(form.doctor,{'attr':{'class':'col mb-3'}}) }}
+
+                        <div class="col-12">
+                            <div class="row mb-3">
+                                <div class="h3 col-12">
+                                    <span>Invoices</span>
+                                    <button type="button" class="add_item_link col-3 btn btn-info float-right" data-collection-holder-class="invoices">add a lab invoice</button>
+                                </div>
+                                <div class="col-12">
+                                    <em class="text-muted">Click on the add invoice button above to add invoices to this batch</em>
+                                </div>
+                            </div>
+                            <div class="list-group invoices" data-index="{{ form.invoice|length > 0 ? form.invoice|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.invoice.vars.prototype)|e('html_attr') }}" role="tablist" id="samplesAccordion">
+                                {% for invoice in form.invoice %}
+                                    <div class="list-group-item mb-3 border-bottom border-bottom-secondary">{{form_widget(invoice,{'row_attr':{'class':'row'}})}}</div>
+                                {% endfor %}
+                                {{ form_widget(form.invoice,{'attr':{'class':'d-none'}}) }}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-success">{{ button_label|default('save new treatment record') }}</button>
+                        <a class="btn btn-dark" href="{{ path('treatment_index') }}">back to list of treatments</a>
+                    </div>
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('newtreatmentinvoicejs') }}
+{% endblock %}

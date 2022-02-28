@@ -75,6 +75,16 @@ class Client
         $this->treatments = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getFullname();
+    }
+    
+    public function getFullname()
+    {
+        return $this->getFname() . ' ' . $this->getLname();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

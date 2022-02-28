@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Treatments{% endblock %}
+
+{% block body %}
+    {% set newTreatmentUrl = ea_url()
+        .setController('App\\Controller\\Admin\\TreatmentCrudController')
+        .setAction('new')
+        .includeReferrer(true)
+    %}
+    <section class="container">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <h1>Treatments</h1>
+                <a class="btn btn-success" href="{{ newTreatmentUrl }}"><i class="fa fa-paper-plane" aria-hidden="true"></i> &nbsp; add new treatment</a>
+            </div>
+            <div class="col-12">
+                <table class="table table-striped table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th>Client</th>
+                            <th>Doctor</th>
+                            <th>Products</th>
+                            <th>Billings</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for treatment in treatments %}
+                        <tr>
+                            <td>{{ treatment.client }}</td>
+                            <td>{{ treatment.doctor }}</td>
+                            <td>{{ treatment.invoice|length }}</td>
+                            <td>{{ treatment.billings|length }}</td>
+                            <td class="btn-group">
+                                <a class="btn btn-sm btn-info" href="{{ path('treatment_show', {'id': treatment.id}) }}"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp; show</a>
+                                <a class="btn btn-sm btn-warning" href="{{ path('treatment_edit', {'id': treatment.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="2">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+{% endblock %}

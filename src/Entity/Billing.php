@@ -27,6 +27,11 @@ class Billing
      */
     private $treatment;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $amountPaid;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,18 @@ class Billing
     public function setTreatment(?Treatment $treatment): self
     {
         $this->treatment = $treatment;
+
+        return $this;
+    }
+
+    public function getAmountPaid(): ?float
+    {
+        return $this->amountPaid;
+    }
+
+    public function setAmountPaid(?float $amountPaid): self
+    {
+        $this->amountPaid = $amountPaid;
 
         return $this;
     }

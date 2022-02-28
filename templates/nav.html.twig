@@ -1,49 +1,61 @@
 
 <!-- ======= Header ======= -->
-<header id="header" class="bg-dark">
+<header id="header" class="bg-secondary">
     <div class="container d-flex align-items-center">
 
-    <h1 class="logo mr-auto">
-        <a href="{{path('home')}}">
-            TRADESTORE <br>
-            <span class="small text-light">journals <span class="text-warning">&plus;</span> reports</span>
-        </a>
-    </h1>
-    <!-- Uncomment below if you prefer to use an image logo -->
-    <a href="{{path('home')}}" class="logo mr-auto"><img src="assets/img/bbp_logo_150x150.png" alt="" class="img-fluid"></a>
+        <h1 class="logo mr-auto">
+            <a href="{{path('home')}}">
+                Hope Essence DIMS<br>
+                <span class="small text-light">clinic information system</span>
+            </a>
+        </h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        {# <a href="{{path('home')}}" class="logo mr-auto"><img src="assets/img/bbp_logo_150x150.png" alt="" class="img-fluid"></a> #}
 
-    <nav class="navbar navbar-expand-sm navbar-light bg-light nav-menu d-none d-lg-block">
-        {% set entriesUrl = ea_url()
-            .setController('App\\Controller\\Admin\\DashboardController')
-            .setAction('index')
-        %}
-        {% set itemsUrl = ea_url()
-            .setController('App\\Controller\\Admin\\ItemCrudController')
-            .setAction('index')
-        %}
-        {% set newEntryUrl = ea_url()
-            .setController('App\\Controller\\Admin\\EntryCrudController')
-            .setAction('new')
-            .includeReferrer(true)
-        %}
-        {% set newItemUrl = ea_url()
-            .setController('App\\Controller\\Admin\\ItemCrudController')
-            .setAction('new')
-            .includeReferrer(true)
-        %}
-        <ul class="nav justify-content-center">
-            <li class="nav-item active"><a class="nav-link" href="{{path('home')}}">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{path('daily_sales')}}">Reports</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{entriesUrl}}">Entries</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{itemsUrl}}">Items</a></li>
-            <li class="drop-down nav-item">
-            <a class="nav-link get-started-btn" href="{{path('admin')}}">Admin</a>
+        <nav class="navbar navbar-expand-sm navbar-light bg-light nav-menu d-none d-lg-block">
+            {% set adminUrl = ea_url()
+                .setController('App\\Controller\\Admin\\DashboardController')
+                .setAction('index')
+            %}
+            {% set clientUrl = ea_url()
+                .setController('App\\Controller\\Admin\\ClientCrudController')
+                .setAction('index')
+            %}
+            {% set newClientUrl = ea_url()
+                .setController('App\\Controller\\Admin\\ClientCrudController')
+                .setAction('new')
+            %}
+            {% set newAppointmentUrl = ea_url()
+                .setController('App\\Controller\\Admin\\AppointmentCrudController')
+                .setAction('new')
+                .includeReferrer(true)
+            %}
+            {% set newTreatmentUrl = ea_url()
+                .setController('App\\Controller\\Admin\\TreatmentCrudController')
+                .setAction('new')
+                .includeReferrer(true)
+            %}
+            {% set newBillingUrl = ea_url()
+                .setController('App\\Controller\\Admin\\BillingCrudController')
+                .setAction('new')
+                .includeReferrer(true)
+            %}
             <ul class="nav justify-content-center">
-                <li class="nav-item"><a class="nav-link" href="{{newEntryUrl}}">New Entry</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{newItemUrl}}">New Item</a></li>
+                {# <li class="nav-item active"><a class="nav-link" href="{{path('home')}}">Home</a></li> #}
+                <li class="nav-item"><a class="nav-link" href="{{path('treatment_index')}}">Treatments</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Appointments</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{adminUrl}}">Users</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{path('client_index')}}">Clients</a></li>
+                <li class="drop-down nav-item">
+                <a class="nav-link get-started-btn" href="{{path('admin')}}">Admin</a>
+                <ul class="nav justify-content-center">
+                    <li class="nav-item"><a class="nav-link" href="{{newAppointmentUrl}}">New Appointment</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{newTreatmentUrl}}">New Treatment</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{newClientUrl}}">New Client</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{newBillingUrl}}">New Billing</a></li>
+                </ul>
+                </li>
             </ul>
-            </li>
-        </ul>
-    </nav><!-- .nav-menu -->
+        </nav><!-- .nav-menu -->
     </div>
 </header><!-- End Header -->

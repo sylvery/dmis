@@ -35,13 +35,18 @@ class Product
     private $price;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Treatment::class, mappedBy="product")
+     * @ORM\OneToMany(targetEntity=Invoice::class, mappedBy="product")
      */
-    private $treatments;
+    private $invoices;
 
     public function __construct()
     {
-        $this->treatments = new ArrayCollection();
+        $this->invoices = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getName() . ' - K ' . $this->getPrice();
     }
 
     public function getId(): ?int
@@ -86,27 +91,30 @@ class Product
     }
 
     /**
-     * @return Collection<int, Treatment>
+     * @return Collection<int, Invoice>
      */
-    public function getTreatments(): Collection
+    public function getInvoices(): Collection
     {
-        return $this->treatments;
+        return $this->invoices;
     }
 
-    public function addTreatment(Treatment $treatment): self
+    public function addInvoice(Invoice $invoice): self
     {
-        if (!$this->treatments->contains($treatment)) {
-            $this->treatments[] = $treatment;
-            $treatment->addProduct($this);
+        if (!$this->invoices->contains($invoice)) {
+            $this->invoices[] = $invoice;
+            $invoice->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removeTreatment(Treatment $treatment): self
+    public function removeInvoice(Invoice $invoice): self
     {
-        if ($this->treatments->removeElement($treatment)) {
-            $treatment->removeProduct($this);
+        if ($this->invoices->removeElement($invoice)) {
+            // set the owning side to null (unless already changed)
+            if ($invoice->getProduct() === $this) {
+                $invoice->setProduct(null);
+            }
         }
 
         return $this;

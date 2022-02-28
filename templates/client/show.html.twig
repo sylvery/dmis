@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client{% endblock %}
+
+{% block body %}
+    <section class="container">
+        <div class="row">
+            <div class="col-12 mb-5">
+                <h1>Client Details</h1>
+            </div>
+            <div class="col mb-5">
+                <div class="row">
+                    <div class="col-md-4 pr-0" style="background: center top url({{asset('assets/img/trainer-2.jpg')|raw}})">
+                        {# <img class="card-img-top" src="{{asset('assets/img/trainer-2.jpg')}}" alt=""> #}
+                    </div>
+                    <div class="col-md-8 pl-0">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                {{client.fullname}}
+                                    {% if client.gender is same as('M') %}
+                                        <i class="fa fa-male float-right" aria-hidden="true"></i>
+                                    {% elseif client.gender is same as('F') %}
+                                        <i class="fa fa-female float-right" aria-hidden="true"></i>
+                                    {% else %}
+                                        <i class="fa fa-transgender float-right" aria-hidden="true"></i>
+                                    {% endif %}
+                                </h4>
+                                <div class="card-text">
+                                    <i class="fa fa-id-card fa-md fa-fw mr-3 mb-3" aria-hidden="true"></i> {{client.jobtitle}} <br>
+                                    {% if client.employer is defined %}
+                                        <i class="fa fa-warehouse fa-md fa-fw mr-3 mb-3" aria-hidden="true"></i> {{client.employer}} <br>
+                                    {% endif %}
+                                    <i class="fas fa-phone fa-md fa-fw mr-3 mb-3"></i> {{ client.phone }} <br>
+                                    <i class="fas fa-envelope fa-md fa-fw mr-3 mb-3"></i> {{ client.email }} <br>
+                                    {% if client.insuranceprovider is defined %}
+                                        <i class="fa fa-building fa-md fa-fw mr-3 mb-3" aria-hidden="true"></i> {{client.insuranceprovider}} <br>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# {% if  client.appointments is not null %} #}
+                <div class="col-md-4 mb-5">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h4 class="card-title">Upcoming Appointments</h4>
+                            <p class="card-text">
+                                {% for appointment in client.appointments %}
+                                    {% if appointment.date|date("dmy") < date()|date("dmy") %}
+                                        {# <span class="text-danger">don't show</span> #}
+                                    {% else %}
+                                        <p class="border-top border-dark py-2">
+                                            <span>{{appointment.date|date('F jS Y')}}</span><br>
+                                            <span class="text-muted small">{{appointment.description}}</span>
+                                        </p>
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <p class="lead">Previous Appointments</p>
+                            <p class="card-text">
+                                {% for appointment in client.appointments %}
+                                    {% if appointment.date|date("dmy") < date()|date("dmy") %}
+                                        <p class="border-top border-dark py-2">
+                                            <span>{{appointment.date|date('F jS Y')}}</span><br>
+                                            <span class="text-muted small">{{appointment.description}}</span>
+                                            {% if appointment.noshow %}
+                                                <span class="badge badge-pill badge-danger float-right">no show</span>
+                                            {% endif %}
+                                        </p>
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {# {% endif %} #}
+            <div class="col-md-12">
+                <h4 class="lead">Treatment & Billing</h4>
+                <div class="card-columns">
+                    {% for treatment in client.treatments %}
+                        <div class="card border-success mb-3">
+                            <div class="card-body">
+                                <h4 class="card-title"><span>{{treatment.date|date('F jS, Y')}}</span></h4>
+                                <p class="card-text">
+                                    <span class="text-dark">
+                                        {% for invoice in treatment.invoice %}
+                                            {% for product in invoice %}
+                                                {{product}} <span class="float-right">K {{product.price|number_format(2, '.', ',')}}</span><br />
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </span>
+                                    <span class="text-dark float-right"><strong>K {{treatment.totalCost|number_format(2, '.', ',')}}</strong></span>
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-12">
+                <a class="btn btn-warning btn-sm" href="{{ path('client_index') }}"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i> back to list of clients</a>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

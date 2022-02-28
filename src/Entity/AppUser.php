@@ -35,6 +35,11 @@ class AppUser implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
+    public function __toString()
+    {
+        return $this->getUsername();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -50,6 +55,11 @@ class AppUser implements UserInterface, PasswordAuthenticatedUserInterface
         $this->email = $email;
 
         return $this;
+    }
+
+    public function getUsername()
+    {
+        return $this->getEmail();
     }
 
     /**
