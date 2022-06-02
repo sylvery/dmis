@@ -34,13 +34,13 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToUrl('exit dashboard', 'fas fa-chevron-left', '/');
-        yield MenuItem::linktoDashboard('AppUser', 'fas fa-user');
-        yield MenuItem::linkToCrud('Appointment', 'fas fa-calendar', Appointment::class);
+        yield MenuItem::linktoDashboard('Users', 'fas fa-user');
+        yield MenuItem::linkToCrud('Appointments', 'fas fa-calendar', Appointment::class);
         yield MenuItem::linkToCrud('Billing', 'fas fa-coins', Billing::class);
-        yield MenuItem::linkToCrud('Client', 'fas fa-users', Client::class);
-        yield MenuItem::linkToCrud('Product', 'fas fa-box', Product::class);
-        yield MenuItem::linkToCrud('Treatment', 'fas fa-newspaper', Treatment::class);
+        yield MenuItem::linkToCrud('Patients', 'fas fa-users', Client::class);
+        yield MenuItem::linkToCrud('Products', 'fas fa-box', Product::class);
+        yield MenuItem::linkToCrud('Treatments', 'fas fa-newspaper', Treatment::class);
+        yield MenuItem::linkToUrl('<span class="btn btn-danger text-light">exit dashboard</span>', '', '/');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

@@ -5,13 +5,17 @@ namespace App\Controller\Admin;
 use App\Entity\AppUser;
 use App\Entity\Product;
 use App\Entity\Treatment;
+use App\Form\InvoiceAdminType;
+use App\Form\InvoiceType;
 use App\Repository\AppUserRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 
 class TreatmentCrudController extends AbstractCrudController
@@ -29,13 +33,20 @@ class TreatmentCrudController extends AbstractCrudController
         $doctor = AssociationField::new('doctor')
             ->setQueryBuilder(
                 fn ($manager) => $manager->andWhere('entity.id > 0')
-            )
-        ;
-        $product = AssociationField::new('product');
+        );
+        $invoice = AssociationField::new('invoice');
         $billings = AssociationField::new('billings');
         $date = DateField::new('date');
         $paid = BooleanField::new('paid');
-        return [$date,$client,$doctor,$product,$paid];
+        if (Crud::PAGE_NEW == $pageName OR Crud::PAGE_EDIT == $pageName) {
+            return [ $date, $client, $doctor, $paid,
+                CollectionField::new('invoice')
+                    // ->allowAdd(true)
+                    // ->renderExpanded(true)
+                    ->setFormType(InvoiceAdminType::class)
+            ];
+        }
+        return [$date, $client, $doctor, $invoice, $paid];
     }
 
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void

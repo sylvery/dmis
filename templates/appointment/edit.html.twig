@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Appointment{% endblock %}
+
+{% block body %}
+    <section class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Edit Appointment</h1>
+                {{ include('appointment/_form.html.twig', {'button_label': 'Update'}) }}
+            </div>
+        </div>
+    </section>
+    {# {{ include('appointment/_delete_form.html.twig') }} #}
+{% endblock %}

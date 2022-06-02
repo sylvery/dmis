@@ -18,14 +18,14 @@ class Appointment
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $date;
+    private $startDate;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $time;
+    private $endDate;
 
     /**
      * @ORM\Column(type="text")
@@ -45,30 +45,6 @@ class Appointment
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    public function getTime(): ?\DateTimeInterface
-    {
-        return $this->time;
-    }
-
-    public function setTime(\DateTimeInterface $time): self
-    {
-        $this->time = $time;
-
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -103,6 +79,35 @@ class Appointment
     public function setNoshow(?bool $noshow): self
     {
         $this->noshow = $noshow;
+
+        return $this;
+    }
+
+    public function isNoshow(): ?bool
+    {
+        return $this->noshow;
+    }
+
+    public function getStartDate(): ?\DateTimeInterface
+    {
+        return $this->startDate;
+    }
+
+    public function setStartDate(?\DateTimeInterface $startDate): self
+    {
+        $this->startDate = $startDate;
+
+        return $this;
+    }
+
+    public function getEndDate(): ?\DateTimeInterface
+    {
+        return $this->endDate;
+    }
+
+    public function setEndDate(?\DateTimeInterface $endDate): self
+    {
+        $this->endDate = $endDate;
 
         return $this;
     }

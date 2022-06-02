@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TreatmentRepository;
+use DateTime;
+use DateTimeZone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -62,7 +64,9 @@ class Treatment
 
     public function __toString()
     {
-        return $this->getDate()->format('F jS Y') . ' ' . $this->getClient() . ' K' . $this->getTotalCost();
+        $date = $this->getDate(); //->format('F jS Y');
+        $date ? '' : $date = new DateTime('now', new DateTimeZone('Pacific/Port_Moresby')); //->format('F jS Y');
+        return $date->format('F jS Y') . ' ' . $this->getClient() . ' K' . $this->getTotalCost();
     }
 
     public function getId(): ?int
@@ -188,5 +192,10 @@ class Treatment
         }
 
         return $this;
+    }
+
+    public function isPaid(): ?bool
+    {
+        return $this->paid;
     }
 }

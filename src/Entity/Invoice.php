@@ -44,14 +44,14 @@ class Invoice
      */
     private $unitCost;
 
-    public function __construct()
-    {
-        // $this->product = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return $this->getQuantity();
     }
 
     public function getQuantity(): ?float
@@ -78,18 +78,6 @@ class Invoice
         return $this;
     }
 
-    public function getProduct(): ?Product
-    {
-        return $this->product;
-    }
-
-    public function setProduct(?Product $product): self
-    {
-        $this->product = $product;
-
-        return $this;
-    }
-
     public function getUnitCost(): ?float
     {
         return $this->unitCost;
@@ -110,6 +98,18 @@ class Invoice
     public function setTreatment(?Treatment $treatment): self
     {
         $this->treatment = $treatment;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
 
         return $this;
     }

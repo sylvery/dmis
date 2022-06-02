@@ -15,6 +15,19 @@ class ClientCrudController extends AbstractCrudController
         return Client::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        $crud
+            ->setEntityLabelInSingular('Patient')
+            ->setEntityLabelInPlural('Patients')
+        ;
+        return $crud
+            ->setPageTitle(Crud::PAGE_EDIT, 'Edit Patient')
+            ->setPageTitle(Crud::PAGE_NEW, 'Add new Patient')
+            ->setPageTitle(Crud::PAGE_INDEX, 'Patient')
+        ;
+    }
+
     public function configureFields(string $pageName): iterable
     {
         $gender = ChoiceField::new('gender')
@@ -45,7 +58,7 @@ class ClientCrudController extends AbstractCrudController
             ->setLabel('Insurance Provider')
         ;
         if (Crud::PAGE_INDEX === $pageName) {
-            return [$fname, $lname, $phone];
+            return [TextField::new('fullname')->setLabel('Name'), $phone];
         }
         return [$fname, $lname, $gender, $phone, $email, $jobtitle, $employer, $insuranceprovider];
     }

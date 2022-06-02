@@ -28,7 +28,6 @@ import './vendor/bootstrap/css/bootstrap.css';
 import 'jquery';
 import './bootstrap';
 import './vendor/bootstrap/js/bootstrap.bundle';
-import './vendor/aos/aos';
 import './vendor/counterup/counterup.min';
 import './vendor/jquery.easing/jquery.easing.min';
 import './vendor/waypoints/jquery.waypoints.min';
