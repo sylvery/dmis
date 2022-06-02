@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+    <div class="{{row_attr|default('container')}}">
+    {{ form_widget(form,{'attr':{'class':'row mb-3'}}) }}
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-success">{{ button_label|default('save new treatment record') }}</button>
+        <a class="btn btn-dark" href="{{ path('treatment_index') }}">back to list of treatments</a>
+    </div>
+{{ form_end(form) }}

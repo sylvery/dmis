@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <section class="container">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <h1>Register</h1>
+                {# <a class="btn btn-success" href="{{ newTreatmentUrl }}"><i class="fa fa-plus" aria-hidden="true"></i> &nbsp; add new treatment</a> #}
+            </div>
+            <div class="col-12">
+                {{ form_start(registrationForm) }}
+                    {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.plainPassword, {
+                        label: 'Password'
+                    }) }}
+                    {{ form_row(registrationForm.agreeTerms) }}
+
+                    <button type="submit" class="btn btn-lg btn-success">Register</button>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}

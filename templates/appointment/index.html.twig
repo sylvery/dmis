@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Appointments{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <section class="row">
+            <div class="col-md-12">
+                <h1 class="">Appointments</h1>
+                <div class="btn-group mb-3">
+                    <a href="{{path('appointment_new')}}" class="btn btn-outline-success">create appointment</a>
+                </div>
+                <div id="calendar-holder" class="mb-3"></div>
+                <table class="table table-striped table-hover table-small small d-none">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Description</th>
+                            <th>Noshow</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for appointment in appointments %}
+                        <tr>
+                            <td>{{ appointment.id }}</td>
+                            <td>{{ appointment.startDate ? appointment.startDate|date('Y-m-d') : '' }}</td>
+                            <td>{{ appointment.endDate ? appointment.startDate|date('H:i') ~ '-' ~ appointment.endDate|date('H:i') : '' }}</td>
+                            <td>{{ appointment.description }}</td>
+                            <td>{{ appointment.noshow ? 'Yes' : 'No' }}</td>
+                            <td>
+                                <a href="{{ path('appointment_show', {'id': appointment.id}) }}">show</a>
+                                <a href="{{ path('appointment_edit', {'id': appointment.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.js"></script>
+    {{ encore_entry_script_tags('appointmentscalendarjs') }}
+{% endblock %}
