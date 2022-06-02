@@ -39,11 +39,6 @@ class Invoice
      */
     private $product;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $unitCost;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -74,18 +69,6 @@ class Invoice
     public function setDiscount(?float $discount): self
     {
         $this->discount = $discount;
-
-        return $this;
-    }
-
-    public function getUnitCost(): ?float
-    {
-        return $this->unitCost;
-    }
-
-    public function setUnitCost(?float $unitCost): self
-    {
-        $this->unitCost = $unitCost;
 
         return $this;
     }
