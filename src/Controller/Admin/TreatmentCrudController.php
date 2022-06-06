@@ -47,8 +47,22 @@ class TreatmentCrudController extends AbstractCrudController
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         $totalCost = 0;
-        $invoices = $entityInstance->getInvoice();
-        foreach ($invoices as $invoice) {
+        foreach ($entityInstance->getInvoice() as $invoice) {
+            $subTotal = $invoice->getProduct()->getPrice() * $invoice->getQuantity();
+            $discount = $subTotal * $invoice->getDiscount() / 100;
+            $cost = $subTotal - $discount;
+            $totalCost += $cost;
+            $entityManager->persist($invoice);
+        }
+        $entityInstance->setTotalCost($totalCost);
+        $entityManager->persist($entityInstance);
+        $entityManager->flush();
+    }
+
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        $totalCost = 0;
+        foreach ($entityInstance->getInvoice() as $invoice) {
             $subTotal = $invoice->getProduct()->getPrice() * $invoice->getQuantity();
             $discount = $subTotal * $invoice->getDiscount() / 100;
             $cost = $subTotal - $discount;
