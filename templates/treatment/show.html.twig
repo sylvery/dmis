@@ -89,7 +89,7 @@
                                     {{invoice.discount}}%
                                 </td>
                                 <td>
-                                    K {{(invoice.unitCost - invoice.unitCost*invoice.discount/100)|number_format(2, '.', ',')}}
+                                    K {{(invoice.product.price*invoice.quantity - invoice.product.price*invoice.quantity*invoice.discount/100)|number_format(2, '.', ',')}}
                                 </td>
                             </tr>
                             {% endfor %}

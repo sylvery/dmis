@@ -65,7 +65,7 @@ class AppUserCrudController extends AbstractCrudController
     public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         $plainPassword = $entityInstance->getPassword();
-        $encPass = $this->passEncInt->hashPassword($this->getUser(),$plainPassword);
+        $encPass = $this->passEncInt->hashPassword($entityInstance,$plainPassword);
         $entityInstance->setPassword($encPass);
         // dump($entityInstance); exit;
         $entityManager->persist($entityInstance);
@@ -75,7 +75,7 @@ class AppUserCrudController extends AbstractCrudController
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         $plainPassword = $entityInstance->getPassword();
-        $encPass = $this->passEncInt->hashPassword($this->getUser(),$plainPassword);
+        $encPass = $this->passEncInt->hashPassword($entityInstance,$plainPassword);
         $entityInstance->setPassword($encPass);
         // dump($entityInstance); exit;
         $entityManager->persist($entityInstance);

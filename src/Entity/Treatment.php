@@ -22,7 +22,7 @@ class Treatment
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=Invoice::class, mappedBy="treatment")
+     * @ORM\OneToMany(targetEntity=Invoice::class, mappedBy="treatment", cascade={"persist"})
      */
     private $invoice;
 
